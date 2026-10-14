@@ -28,6 +28,7 @@ class Ecrans {
             break
         }
     }
+    
     private fun showZametkiScreen(archive: Archive) {
         while(true) {
             val zametkiMenuItems = mutableListOf<MenuItem>()
