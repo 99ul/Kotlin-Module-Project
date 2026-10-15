@@ -4,39 +4,40 @@ class Ecrans {
     private val scanner = Scanner(System.`in`)
     private val archives = mutableListOf<Archive>()
     fun showArchivesScreen() {
-        while(true) {
+        var isRunning = true
+        while(isRunning) {
             val archiveMenuItems = mutableListOf<MenuItem>()
             archiveMenuItems.add(MenuItem("создать архив") { createArchive() })
             archives.forEach { archive ->
                 archiveMenuItems.add(MenuItem(archive.name) { showZametkiScreen(archive) })
             }
-
-            archiveMenuItems.add(MenuItem("выход") { })
+            archiveMenuItems.add(MenuItem("выход") { isRunning = false })
             Menu("список архивов", archiveMenuItems).show()
         }
     }
     private fun createArchive() {
         while(true) {
-            print("ввелите название архива: ")
+            print("введите название архива: ")
             val archiveName = scanner.nextLine().trim()
             if(archiveName.isEmpty()) {
                 println("название архива не может быть пустым")
                 continue
             }
             archives.add(Archive(archiveName))
-            println("Архив " + archiveName + "создан")
+            println("Архив " + archiveName + " создан")
             break
         }
     }
 
     private fun showZametkiScreen(archive: Archive) {
-        while(true) {
+        var isInsideArchive = true
+        while(isInsideArchive) {
             val zametkiMenuItems = mutableListOf<MenuItem>()
             zametkiMenuItems.add(MenuItem("создать заметку") { createZametka(archive) })
             archive.zametki.forEach { zametka ->
                 zametkiMenuItems.add(MenuItem(zametka.title) { viewZametkaScreen(zametka) })
             }
-            zametkiMenuItems.add(MenuItem("назад") { })
+            zametkiMenuItems.add(MenuItem("назад") { isInsideArchive = false })
             Menu("архив " + archive.name + " -> список заметок", zametkiMenuItems).show()
         }
     }
@@ -55,7 +56,7 @@ class Ecrans {
                 continue
             }
             archive.zametki.add(Zametka(zametkaTitle, zametkaText))
-            println("заметка" + zametkaTitle + " создана")
+            println("заметка " + zametkaTitle + " создана")
             break
         }
     }
@@ -65,5 +66,6 @@ class Ecrans {
         )
         println("Название: " + zametka.title)
         println("Текст: " + zametka.text)
+        Menu("действия с заметкой", viewMenuItems).show()
     }
 }
