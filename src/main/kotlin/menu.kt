@@ -31,9 +31,7 @@ class Menu(
             }
             val selectedItem = menuItems[choice]
             selectedItem.action()
-            if (choice == menuItems.lastIndex) {
-                break
-            }
+            return
         }
     }
 }

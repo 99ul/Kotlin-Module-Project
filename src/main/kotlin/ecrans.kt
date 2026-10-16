@@ -29,7 +29,7 @@ class Ecrans {
         }
     }
 
-    private fun showZametkiScreen(archive: Archive) {
+    fun showZametkiScreen(archive: Archive) {
         var isInsideArchive = true
         while(isInsideArchive) {
             val zametkiMenuItems = mutableListOf<MenuItem>()
